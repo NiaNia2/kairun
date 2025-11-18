@@ -2,10 +2,21 @@
 @use "../abstracts/variables" as v;
 
 @keyframes shake {
-    0% { transform: translateX(0); }
-    33% { transform: translateX(-6px); }
-    66% { transform: translateX(6px); }
-    100% { transform: translateX(0);}
+    0% {
+        transform: translateX(0);
+    }
+
+    33% {
+        transform: translateX(-6px);
+    }
+
+    66% {
+        transform: translateX(6px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 @mixin form-basique($width: 70%, $height: 650px) {
@@ -32,11 +43,11 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
         .alert {
-            background-color: color.adjust(v.$color-secondary, $lightness: -10%);
+            background-color: color.adjust(v.$color-erreur, $lightness: -10%);
             padding: 1rem;
             border-radius: 6px 6px 0 0;
-            border: solid 3px v.$color-primary;
             text-align: center;
         }
 
@@ -52,16 +63,18 @@
             //background-image: url("");
             background-size: calc(100% + 10px) 100%;
             background-position: -5px;
-            font-family: v.$font-titre;
-            text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black;
+            font-family: v.$font-nunito;
+            text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
             font-size: 0.95rem;
             text-align: center;
-            color: v.$color-primary;
+            color: v.$color-noir;
+
             span {
                 width: 60%;
             }
+
             a {
-                color: v.$color-white;
+                color: v.$color-blanc;
             }
         }
     }
@@ -82,6 +95,7 @@
             justify-content: center;
             align-items: start;
             margin: 0;
+
             img {
                 min-height: 450px;
                 max-height: $height;
@@ -110,18 +124,19 @@
             -webkit-mask-size: 100% 100%;
 
             .text-headline {
-                color: v.$color-primary;
-                text-shadow: 2px 2px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black;
+                color: v.$color-noir;
+                text-shadow: 2px 2px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
                 font-size: 1.6rem;
                 text-transform: uppercase;
                 letter-spacing: 0.4rem;
             }
+
             .text-subheadline {
-                color: v.$color-error;
+                color: v.$color-erreur;
                 font-size: 0.8rem;
                 text-transform: uppercase;
                 letter-spacing: 0.14rem;
-                text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black;
+                text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
             }
         }
     }
@@ -131,19 +146,20 @@
     span:first-child {
         padding-top: 5%;
     }
+
     span {
         width: 100%;
         display: block;
         margin-bottom: 1.15rem;
         position: relative;
-        text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black;
+        text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
 
         label {
             width: 100%;
             height: 64px;
             padding-top: 12px;
-            color: v.$color-primary;
-            font-family: v.$font-titre;
+            color: v.$color-noir;
+            font-family: v.$font-nunito;
             font-size: 0.75rem;
             letter-spacing: .08rem;
             text-transform: uppercase;
@@ -154,6 +170,7 @@
             background-position: -5px;
             text-align: center;
             transition: 0.15s ease;
+
             span:last-child {
                 margin: -5px 0 0;
                 padding: 0 4rem 0;
@@ -176,10 +193,10 @@
             text-align: center;
             padding-top: 3px;
             border: none;
-            border-bottom: 2px solid v.$color-accent;
-            font-family: v.$font-titre;
+            border-bottom: 2px solid v.$color-noir;
+            font-family: v.$font-noir;
             color: v.$color-accent;
-            text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black;
+            text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
             background-color: transparent;
             //background-image: url();
             background-size: contain;
@@ -187,16 +204,17 @@
             outline: none;
             resize: none;
         }
+
         input:focus-visible {
             outline: none;
-            border-bottom-color: color.adjust(v.$color-primary, $lightness: 20%);
+            border-bottom-color: color.adjust(v.$color-error, $lightness: 20%);
         }
     }
 
     input[type="file"] {
         &::-webkit-file-upload-button {
             background-color: transparent;
-            color: v.$color-accent;
+            color: v.$color-noir;
             border: none;
             padding: 0.3rem 0.5rem;
             cursor: pointer;
@@ -204,36 +222,36 @@
         }
 
         &::-webkit-file-upload-button:hover {
-            background-color: v.$color-accent;
-            color: v.$color-white;
+            background-color: v.$color-blanc;
+            color: v.$color-noir;
         }
 
         &::file-selector-button {
             padding: 0.3rem 0.5rem;
             background-color: transparent;
-            color: v.$color-accent;
-            border: 1px solid v.$color-accent;
+            color: v.$color-noir;
+            border: 1px solid v.$color-noir;
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.2s ease-in-out;
         }
 
         &::file-selector-button:hover {
-            background-color: v.$color-accent;
-            color: v.$color-white;
+            background-color: v.$color-blanc;
+            color: v.$color-noir;
         }
     }
 
     input[type=submit] {
         margin: 0 auto 25px;
         background-color: transparent;
-        color: v.$color-white;
+        color: v.$color-noir;
         border: none;
         padding: 10px 2rem 14px;
-        font-family: v.$font-titre;
+        font-family: v.$font-nunito;
         cursor: pointer;
         transition: background 0.3s;
-        text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px  1px 0 black;
+        text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
     }
 
     .inputs--filled label {
@@ -243,8 +261,8 @@
     .inputs--invalid input,
     .inputs--invalid select,
     .inputs--invalid textarea {
-        border-bottom: 4px solid v.$color-error;
-        color: v.$color-error;
+        border-bottom: 4px solid v.$color-erreur;
+        color: v.$color-erreur;
         animation: shake 0.3s both ease-in-out;
     }
 }
@@ -258,6 +276,7 @@
     min-height: 100vh;
     padding: 1rem;
     @include warming();
+
     .form {
         @include form-basique();
 
@@ -288,8 +307,8 @@
                 .form-group {
                     .form-error {
                         text-align: center;
-                        color: v.$color-error;
-                        font-family: v.$font-titre;
+                        color: v.$color-erreur;
+                        font-family: v.$font-nunito;
 
                         ul {
                             margin-bottom: 0;
@@ -313,6 +332,7 @@
     #form {
         .form {
             width: 95%;
+
             .mix {
                 .headline {
                     width: 100%;
@@ -325,6 +345,7 @@
 @media screen and (max-width:768px) {
     #form {
         padding: 0;
+
         .form {
             width: 75%;
             flex-direction: column;
@@ -334,6 +355,7 @@
 
             .form-content {
                 flex-direction: column;
+
                 .mix {
                     width: 100%;
                 }
@@ -362,6 +384,7 @@
     #form {
         .form {
             width: 100%;
+
             .form-content {
                 .all-form {
                     .form-group {
@@ -369,6 +392,7 @@
                         flex-direction: column;
                         justify-content: center;
                         align-items: center;
+
                         .form-error {
                             width: 95%;
                         }
@@ -389,9 +413,11 @@
                     span:first-child {
                         padding-top: 14%;
                     }
+
                     span {
                         padding: 0 10%;
                     }
+
                     input[type=submit] {
                         margin-bottom: 80px;
                     }

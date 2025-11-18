@@ -1,16 +1,24 @@
 @use "../abstracts/variables" as v;
 
-.cta {
+.pdp {
     padding: 1rem 1.5rem;
-    color: v.$color-white;
-    background-color: v.$color-primary;
-    border: solid 3px v.$color-primary;
+    color: v.$color-noir;
+    background-color: v.$color-bleu;
     border-radius: 1rem;
     transition: all 0.2s ease-in-out;
 }
 
-.cta:hover {
-    background-color: v.$color-secondary;
+.pdm {
+    padding: 1rem 1.5rem;
+    color: v.$color-noir;
+    background-color: v.$color-corail;
+    border-radius: 1rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.pdp:hover,
+.pdm:hover {
+    background-color: v.$color-pêche;
 }
 
 .btn {
@@ -76,6 +84,7 @@
     .redo-icon {
         text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;
     }
+
     transition: all 0.2s ease-in-out;
 }
 

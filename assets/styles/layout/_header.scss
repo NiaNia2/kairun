@@ -33,13 +33,22 @@
                     display: none;
                     margin-right: 5rem;
                     transition: display 5s ease-out;
+
                     i {
-                        color: v.$color-secondary;
-                    };
-                };
+                        color: v.$color-noir;
+                    }
+
+                    ;
+                }
+
+                ;
+
                 .dropdown:hover {
                     cursor: pointer;
-                };
+                }
+
+                ;
+
                 .dropdown-content {
                     position: absolute;
                     z-index: 1;
@@ -47,16 +56,18 @@
                     flex-direction: column;
                     min-width: 10rem;
                     padding: 0.8rem 1rem;
-                    border: 3px solid v.$color-secondary;
+                    border: 3px solid v.$color-noir;
                     border-radius: 1rem;
-                    background-color: v.$color-primary;
-                    box-shadow: 0 10px 15px 12px v.$color-accent;
+                    background-color: v.$color-blanc;
+                    box-shadow: 0 10px 15px 12px v.$color-blanc;
                     transform: translate(-45%, 2%);
 
                     li a:hover {
-                        border-bottom: 1px solid v.$color-secondary;
+                        border-bottom: 1px solid v.$color-pêche;
                     }
-                };
+                }
+
+                ;
             }
         }
     }
@@ -64,17 +75,13 @@
 
 @media screen and (min-width:1921px) {
     #header {
-        .header {
-
-        }
+        .header {}
     }
 }
 
 @media screen and (max-width:1250px) {
     #header {
-        .header {
-
-        }
+        .header {}
     }
 }
 
@@ -86,10 +93,13 @@
                     .navbar_list {
                         display: none;
                     }
+
                     .dropdown {
                         position: relative;
                         display: inherit;
-                    };
+                    }
+
+                    ;
                 }
             }
         }
@@ -98,16 +108,12 @@
 
 @media screen and (max-width:525px) {
     #header {
-        .header {
-
-        }
+        .header {}
     }
 }
 
 @media screen and (max-width:453px) {
     #header {
-        .header {
-
-        }
+        .header {}
     }
 }

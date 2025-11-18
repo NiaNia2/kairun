@@ -1,13 +1,18 @@
 @use "../base/typographys";
 
-$font-source: "Source Sans Pro Regular", serif;
-$font-source-bold: "Source Sans Pro Bold", serif;
+//   FONT
+$font-play: 'Play';
+$font-poppins: 'poppins';
+$font-nunito: 'Nunito';
 
-$color-primary: rgb(164, 164, 164);
-$color-secondary: rgba(35, 35, 35, 0.19);
-$color-accent: rgb(231, 49, 49);
 
-$color-white: #Fafdff;
-$color-black: #080606;
+//   COLOR
 
-$color-overlay: rgba(0, 0, 0, 0.5);
+$color-menthe: #a8e6cf;
+$color-pêche: #ffd3b6;
+$color-bleu: #a0ced9;
+$color-corail: #ffaaa5;
+$color-noir: #2f2f2f;
+$color-blanc: #fafafa;
+
+$color-erreur: #ff746c;

@@ -12,9 +12,9 @@ html {
 body {
     position: relative;
     margin: 0 auto;
-    font-family: v.$font-source;
-    background: v.$color-white;
-    color: v.$color-text-black;
+    font-family: v.$font-nunito;
+    background: v.$color-blanc;
+    color: v.$color-text-noir;
 }
 
 main {
@@ -39,5 +39,5 @@ ul {
 
 a {
     text-decoration: none;
-    color: v.$color-text-black;
+    color: v.$color-text-noir;
 }
