@@ -32,6 +32,8 @@
     //background-image: url("");
     background-size: cover;
     background-repeat: round;
+    background-color: v.$color-test;
+    border-radius: 0.8rem;
 }
 
 .btn-home {
@@ -48,11 +50,12 @@
 .btn:hover,
 .btn:focus {
     //background-image: url("");
+    background-color: v.$color-pêche;
 }
 
 .btn-alt {
-    color: v.$color-white;
-    text-shadow: 1px 1px 0 v.$color-primary, -1px -1px 0 v.$color-primary, 1px -1px 0 v.$color-primary, -1px 1px 0 v.$color-primary;
+    color: v.$color-blanc;
+    text-shadow: 1px 1px 0 v.$color-test, -1px -1px 0 v.$color-test, 1px -1px 0 v.$color-test, -1px 1px 0 v.$color-test;
     font-weight: bold;
     padding: 10px 1rem 14px;
     //background-image: url("");
@@ -79,7 +82,7 @@
     background-size: contain;
     background-repeat: round;
     border: none;
-    color: v.$color-white;
+    color: v.$color-test;
 
     .redo-icon {
         text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black;

@@ -14,7 +14,7 @@ body {
     margin: 0 auto;
     font-family: v.$font-nunito;
     background: v.$color-blanc;
-    color: v.$color-text-noir;
+    color: v.$color-noir;
 }
 
 main {
@@ -39,5 +39,10 @@ ul {
 
 a {
     text-decoration: none;
-    color: v.$color-text-noir;
+    color: v.$color-noir;
+}
+
+h1 {
+    font-family: v.$font-play;
+    font-size: 34px;
 }

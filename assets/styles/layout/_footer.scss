@@ -1,19 +1,22 @@
 @use "../abstracts/variables" as v;
 
 #footer {
-    margin-top: 5rem;
+    margin-top: 2rem;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: v.$color-menthe ;
+
     .footer {
-        margin-top: 3rem;
-        width: 90%;
+        margin-top: 1rem;
+        width: 60%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
         .logo-footer-container {
             display: flex;
             justify-content: center;
@@ -21,9 +24,11 @@
             width: 13%;
             transition: all 0.2s ease-in-out;
         }
+
         .logo-footer-container:hover {
             //transform: rotate(-8deg);
         }
+
         .footer-content {
             margin-top: 1rem;
             position: relative;
@@ -34,18 +39,15 @@
             gap: 15rem;
 
             .footer-list {
-                li a:hover {
-                    border-bottom: 1px solid v.$color-white;
+                ul {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 1rem;
                 }
-            }
 
-            .footer-contact::before {
-                content: "";
-                position: absolute;
-                top: 0;
-                left: 50%;
-                height: 100%;
-                border-left: 2px solid v.$color-accent;
+                li a:hover {
+                    border-bottom: 1px solid v.$color-noir;
+                }
             }
         }
     }
@@ -63,9 +65,7 @@
 
 @media screen and (max-width:1250px) {
     #footer {
-        .footer {
-
-        }
+        .footer {}
     }
 }
 
@@ -78,6 +78,7 @@
             .logo-footer-container {
                 width: 20%;
             }
+
             .footer-content {
                 flex-direction: column;
                 gap: 2rem;
@@ -93,9 +94,7 @@
 
 @media screen and (max-width:525px) {
     #footer {
-        .footer {
-
-        }
+        .footer {}
     }
 }
 

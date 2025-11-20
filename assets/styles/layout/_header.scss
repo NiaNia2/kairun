@@ -8,12 +8,17 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    background-color: v.$color-menthe;
 
     .header {
-        width: 95%;
+        width: 90%;
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .logo-container {
+            width: 13%;
+        }
 
         .navbar_menu {
             .navbar_list_container {
@@ -26,7 +31,14 @@
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
+                    gap: 2rem;
+
+                    li a:hover {
+                        border-bottom: 2px solid v.$color-noir;
+                    }
                 }
+
+
 
                 .dropdown {
                     position: relative;
@@ -70,50 +82,68 @@
                 ;
             }
         }
-    }
-}
 
-@media screen and (min-width:1921px) {
-    #header {
-        .header {}
-    }
-}
+        .navbar_button_contenair {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
 
-@media screen and (max-width:1250px) {
-    #header {
-        .header {}
-    }
-}
+            .navbar_button {
+                ul {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 2rem;
+                }
+            }
 
-@media screen and (max-width:768px) {
-    #header {
-        .header {
-            .navbar__menu {
-                .navbar_list_container {
-                    .navbar_list {
-                        display: none;
+        }
+
+    }
+
+    @media screen and (min-width:1921px) {
+        #header {
+            .header {}
+        }
+    }
+
+    @media screen and (max-width:1250px) {
+        #header {
+            .header {}
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        #header {
+            .header {
+                .navbar__menu {
+                    .navbar_list_container {
+                        .navbar_list {
+                            display: none;
+                        }
+
+                        .dropdown {
+                            position: relative;
+                            display: inherit;
+                        }
+
+                        ;
                     }
-
-                    .dropdown {
-                        position: relative;
-                        display: inherit;
-                    }
-
-                    ;
                 }
             }
         }
     }
-}
 
-@media screen and (max-width:525px) {
-    #header {
-        .header {}
+    @media screen and (max-width:525px) {
+        #header {
+            .header {}
+        }
     }
-}
 
-@media screen and (max-width:453px) {
-    #header {
-        .header {}
+    @media screen and (max-width:453px) {
+        #header {
+            .header {}
+        }
     }
 }

@@ -1,7 +1,90 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Kaïrun - Accueil
+{% endblock %}
 
 {% block body %}
+	<main
+		id="home">
 
-{% endblock %}
+		{# HERO / INTRO #}
+		<section class="hero">
+			<div class="hero__content container">
+				<h1>Bouger. Manger. Avancer. À ton rythme.</h1>
+
+				<p class="hero__intro">
+					Bienvenue sur Kaïrun, un espace de partage autour du sport et de la nutrition.
+					                Ici, pas de perfection : juste du mouvement, du concret et l’envie d’avancer ensemble.
+				</p>
+
+				<div class="hero__cta">
+					<a href="{{ path('home') }}" class="btn-primary">Découvrir les recettes</a>
+					<a href="{{ path('home') }}" class="btn-secondary">En savoir plus</a>
+				</div>
+			</div>
+		</section>
+
+		{# SECTION OBJECTIFS #}
+		<section class="goals">
+			<div class="container goals__grid">
+				<article class="goal-card goal-card--perte">
+					<h2>Perte de poids</h2>
+					<p>
+						Des repas équilibrés, faciles à préparer et adaptés à ton rythme.
+						                    L’objectif : t’aider à alléger l’assiette, pas la motivation.
+					</p>
+					<a href="{{ path('home') }}" class="btn-link">Voir les recettes perte de poids</a>
+				</article>
+
+				<article class="goal-card goal-card--masse">
+					<h2>Prise de masse</h2>
+					<p>
+						Des plats nourrissants et riches en énergie, pensés pour accompagner tes entraînements
+						                    et ta progression séance après séance.
+					</p>
+					<a href="{{ path('home') }}" class="btn-link">Voir les recettes prise de masse</a>
+				</article>
+			</div>
+		</section>
+
+		{# SECTION VALEURS #}
+		<section class="values">
+			<div class="container">
+				<h2>Ce que tu trouveras sur Kaïrun</h2>
+
+				<div class="values__grid">
+					<div class="value-item">
+						<h3>Des recettes simples</h3>
+						<p>Pas de chichi : des idées de repas sport adaptés à la vraie vie.</p>
+					</div>
+
+					<div class="value-item">
+						<h3>Du mouvement</h3>
+						<p>Des repas pensés pour soutenir ton activité, quel que soit ton niveau.</p>
+					</div>
+
+					<div class="value-item">
+						<h3>De la motivation</h3>
+						<p>Progresser pas à pas, sans pression, mais avec envie d’avancer.</p>
+					</div>
+
+					<div class="value-item">
+						<h3>Du partage</h3>
+						<p>Un espace fait pour évoluer ensemble et trouver son propre équilibre.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		{# SECTION CTA FINALE #}
+		<section class="cta-final">
+			<div class="container cta-final__content">
+				<p>Prêt·e à avancer à ton rythme ?</p>
+				<div class="cta-final__buttons">
+					<a href="{{ path('home') }}" class="btn-primary">Inscription</a>
+					<a href="{{ path('home') }}" class="btn-secondary">Connexion</a>
+				</div>
+			</div>
+		</section>
+
+	{% endblock %}
