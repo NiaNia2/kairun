@@ -1,1 +1,23 @@
 @use "../abstracts/variables" as v;
+
+#home {
+    margin-top: 10rem;
+
+    .titre {
+        text-align: center;
+
+        .home-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            ul,
+            li {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 2rem;
+            }
+        }
+    }
+}

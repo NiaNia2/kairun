@@ -44,7 +44,7 @@ class SecurityController extends AbstractController
         ]);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if ($form->isSubmitted() && $form->isValid()) {
             $plainPassword = $form->get('plainPassword')->getData();
             if (!$user->getId()) {
                 $exist = $repository->findOneBy(['email' => $user->getEmail()]);
@@ -54,7 +54,7 @@ class SecurityController extends AbstractController
                 }
 
 
-                $user->setPseudo('NotLinked');
+
                 $user->setStatus('Offline');
                 $user->setRoles(['ROLE_USER']);
                 $user->setCreatedAt(new \DateTimeImmutable());
@@ -85,7 +85,7 @@ class SecurityController extends AbstractController
     #[Route('/delete_user/{id}', name: 'delete_user')]
     public function deleteUser(User $user, Request $request, EntityManagerInterface $entityManager)
     {
-        if($this->isCsrfTokenValid("SUP". $user->getId(),$request->get('_token'))){
+        if ($this->isCsrfTokenValid("SUP" . $user->getId(), $request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
             return $this->redirectToRoute('home');

@@ -32,7 +32,7 @@
     //background-image: url("");
     background-size: cover;
     background-repeat: round;
-    background-color: v.$color-test;
+    border: 1px solid v.$color-noir;
     border-radius: 0.8rem;
 }
 
@@ -40,6 +40,8 @@
     //background-image: url("");
     background-size: cover;
     background-repeat: round;
+    background-color: v.$color-menthe;
+    border-radius: 0.8rem;
     padding: 10px 1rem 14px;
 }
 
@@ -71,6 +73,8 @@
 
 .btn-warming {
     padding: 10px 2rem 14px;
+    background-color: v.$color-menthe;
+    border-radius: 0.8rem;
 }
 
 .reset-btn {

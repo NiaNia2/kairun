@@ -10,7 +10,7 @@
 						<a href="{{ path('home') }}">Accueil</a>
 					</li>
 					<li>
-						<a href="{{ path('home') }}">Perte De Poid</a>
+						<a href="{{ path('home') }}">Perte De Poids</a>
 					</li>
 					<li>
 						<a href="{{ path('home') }}">Prise De Masse</a>
@@ -29,8 +29,18 @@
 		<div class="navbar_button_contenair">
 			<div class="navbar_button">
 				<ul>
-					<li><a class="btn-nav"href="{{path('home')}}">Connection</a></li>
-					<li><a class="btn-nav"href="{{path('home')}}">Inscription</a></li>
+					{% if app.user %}
+						<li>
+							<a class="btn-nav" href="{{ path('app_logout') }}">Se déconnecter</a>
+						</li>
+					{% else %}
+						<li>
+							<a class="btn-nav" href="{{path('app_login')}}">Connection</a>
+						</li>
+						<li>
+							<a class="btn-nav" href="{{path('create_user')}}">Inscription</a>
+						</li>
+					{% endif %}
 				</ul>
 			</div>
 		</div>
