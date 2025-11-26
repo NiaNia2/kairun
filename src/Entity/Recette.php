@@ -5,7 +5,12 @@ namespace App\Entity;
 use App\Repository\RecetteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\User;
+use App\Entity\Objectif;
+use App\Entity\TypeDeRepas;
+use App\Entity\Ingredients;
 
 #[ORM\Entity(repositoryClass: RecetteRepository::class)]
 class Recette
@@ -32,13 +37,19 @@ class Recette
     private ?User $user = null;
 
     /**
-     * @var Collection<int, ingredients>
+     * @var Collection<int, Ingredients>
      */
     #[ORM\ManyToMany(targetEntity: ingredients::class, inversedBy: 'recettes')]
     private Collection $ingredient;
 
     #[ORM\ManyToOne(inversedBy: 'recette')]
     private ?Objectif $objectif = null;
+
+    #[ORM\ManyToOne(inversedBy: 'recettes')]
+    private ?TypeDeRepas $typeDeRepas = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $description = null;
 
     public function __construct()
     {
@@ -111,7 +122,7 @@ class Recette
     }
 
     /**
-     * @return Collection<int, ingredients>
+     * @return Collection<int, Ingredients>
      */
     public function getIngredient(): Collection
     {
@@ -142,6 +153,30 @@ class Recette
     public function setObjectif(?Objectif $objectif): static
     {
         $this->objectif = $objectif;
+
+        return $this;
+    }
+
+    public function getTypeDeRepas(): ?TypeDeRepas
+    {
+        return $this->typeDeRepas;
+    }
+
+    public function setTypeDeRepas(?TypeDeRepas $typeDeRepas): static
+    {
+        $this->typeDeRepas = $typeDeRepas;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Kaïrun - Accueil
+{% block title %}Kaïrun • Accueil
 {% endblock %}
 
 {% block body %}
@@ -12,6 +12,13 @@
 						Bienvenue
 						{{ app.user.pseudo }}
 					</h1>
+					<h2>Quels est ton objectif ?</h2>
+					<div class="home-btn">
+						<ul>
+							<li><a class="btn-home"href="{{path('perte_de_poids')}}">Perte De Poids</a></li>
+							<li><a class="btn-home"href="{{path('prise_de_masse')}}">Prise De Masse</a></li>
+						</ul>
+					</div>
 				{% else %}
 					<h1>Bienvenue sur Kaïrun</h1>
 					<h2>Un espace pour échanger des recettes entre passionnés de sport et de nutrition</h2>

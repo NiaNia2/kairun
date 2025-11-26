@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block title %}Perte de poids • Kaïrun
+{% endblock %}
+
+{% block body %}
+	<main id="perte-de-poid">
+		<section class="objectif-hero container">
+			<h1>Perte de poids</h1>
+			<p class="description">
+				Des recettes simples et équilibrées pour t’aider à avancer à ton rythme.
+			</p>
+		</section>
+
+		<section class="categories container">
+			<h2>Catégories</h2>
+
+			{# POUR LE MOMENT, AUCUN LIEN, JUSTE DES BLOCS VISUELS  #}
+			<div class="categories-flex">
+
+				<div class="cat-card">
+					<h3>Petit-déjeuner</h3>
+				</div>
+
+				<div class="cat-card">
+					<h3>Déjeuner</h3>
+				</div>
+
+				<div class="cat-card">
+					<h3>Dîner</h3>
+				</div>
+
+				<div class="cat-card">
+					<h3>Collation</h3>
+				</div>
+
+			</div>
+		</section>
+
+		<section class="recettes container">
+			<h2>Les dernières recettes Perte de poids</h2>
+
+			<div class="recettes-flex">
+				{% for recette in recettes %}
+					<article class="recette-card">
+						<h3>{{ recette.nom }}</h3>
+
+						<p class="temps">
+							Préparation :
+							{{ recette.tempPrepaMin }}
+							min<br>
+							Cuisson :
+							{{ recette.tempsCuissonsMin }}
+							min
+						</p>
+
+						<a href="#" class="btn-nav">Voir la recette</a>
+					</article>
+				{% else %}
+					<p>Aucune recette pour le moment.</p>
+				{% endfor %}
+			</div>
+		</section>
+	</main>
+{% endblock %}
