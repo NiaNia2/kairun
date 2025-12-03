@@ -2,16 +2,19 @@
 
 namespace App\Entity;
 
-use App\Repository\RecetteRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
+use Vich\Uploadable;
+use App\Entity\Objectif;
+use App\Entity\Ingredients;
+use App\Entity\TypeDeRepas;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\User;
-use App\Entity\Objectif;
-use App\Entity\TypeDeRepas;
-use App\Entity\Ingredients;
+use Vich\UploaderBundle\Entity\File;
+use App\Repository\RecetteRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: RecetteRepository::class)]
 class Recette
 {
@@ -36,6 +39,15 @@ class Recette
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?File $file = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?DateTimeImmutable $updatedAt = null;
+
     /**
      * @var Collection<int, Ingredients>
      */
@@ -50,6 +62,9 @@ class Recette
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -121,6 +136,33 @@ class Recette
         return $this;
     }
 
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+        if ($imageFile) {
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+
+        return $this->imageName;
+    }
+
+
+
     /**
      * @return Collection<int, Ingredients>
      */
@@ -177,6 +219,18 @@ class Recette
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

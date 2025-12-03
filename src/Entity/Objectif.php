@@ -19,9 +19,9 @@ class Objectif
     private ?string $nom = null;
 
     /**
-     * @var Collection<int, recette>
+     * @var Collection<int, Recette>
      */
-    #[ORM\OneToMany(targetEntity: recette::class, mappedBy: 'objectif')]
+    #[ORM\OneToMany(targetEntity: Recette::class, mappedBy: 'objectif')]
     private Collection $recette;
 
     public function __construct()

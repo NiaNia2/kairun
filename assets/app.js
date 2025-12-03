@@ -6,6 +6,7 @@ import '@fortawesome/fontawesome-free/js/all.js';
  * This file will be included onto the page via the importmap() Twig function,
  * which should already be in your base.html.twig.
  */
+import './script/burger.js';
 import './styles/app.scss';
 import 'htmx.org';
 window.htmx = require('htmx.org');
