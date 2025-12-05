@@ -4,15 +4,19 @@ namespace App\Entity;
 
 use App\Entity\User;
 use Vich\Uploadable;
+use DateTimeImmutable;
 use App\Entity\Objectif;
 use App\Entity\Ingredients;
 use App\Entity\TypeDeRepas;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Vich\UploaderBundle\Entity\File;
+// use Vich\UploaderBundle\Entity\File;
 use App\Repository\RecetteRepository;
 use Doctrine\Common\Collections\Collection;
+use phpDocumentor\Reflection\Types\Nullable;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: RecetteRepository::class)]
@@ -40,6 +44,9 @@ class Recette
     private ?User $user = null;
 
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
     private ?string $imageName = null;
 
     #[ORM\Column(nullable: true)]

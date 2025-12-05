@@ -4,7 +4,10 @@
     margin: 3rem auto 2rem;
     text-align: center;
 
-
+    h1 {
+        font-size: 2.4rem;
+        margin-bottom: .5rem;
+    }
 
     .description {
         color: v.$color-noir;
@@ -16,7 +19,12 @@
     margin: 2rem auto;
     text-align: center;
 
-
+    h2 {
+        margin-bottom: 1rem;
+        font-size: 1.6rem;
+        position: relative;
+        display: inline-block;
+    }
 
     h2::after {
         content: '';
@@ -74,13 +82,5 @@
             color: v.$color-noir;
             font-size: .9rem;
         }
-    }
-}
-
-@media (min-width: 768px) {
-
-    .categories .cat-card,
-    .recettes .recette-card {
-        flex: 1 1 calc(25% - 1.2rem);
     }
 }
