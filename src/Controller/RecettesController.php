@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 final class RecettesController extends AbstractController
@@ -27,6 +28,7 @@ final class RecettesController extends AbstractController
 
 
     #[Route('/recette/nouvelle', name: 'recette_new')]
+    #[IsGranted('ROLE_USER')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
         $recette = new Recette();
@@ -45,7 +47,7 @@ final class RecettesController extends AbstractController
             return $this->redirectToRoute('app_recettes');
         }
 
-        return $this->render('recettes/new.html.twig', [
+        return $this->render('create_recette.html.twig', [
             'form' => $form->createView(),
         ]);
     }

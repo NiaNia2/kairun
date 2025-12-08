@@ -7,10 +7,13 @@ use App\Entity\Recette;
 use App\Entity\Objectif;
 use App\Entity\Ingredients;
 use App\Entity\TypeDeRepas;
+use Doctrine\DBAL\Types\TextType;
 use Vich\UploaderBundle\Entity\File;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -34,34 +37,42 @@ class RecetteType extends AbstractType
                     ])
                 ],
             ])
-            ->add('nom')
-            ->add('temp_prepa_min')
-            ->add('temps_cuissons_min')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+            ->add('nom', TextType::class, [
+                'label' => 'Nom de la recette'
             ])
+            ->add('temp_prepa_min', IntegerType::class, [
+                'label' => 'Temps de préparation (minutes)'
+            ])
+            ->add('temps_cuissons_min', IntegerType::class, [
+                'label' => 'Temps de cuisson (minutes)'
+            ])
+
             ->add('ingredient', EntityType::class, [
                 'class' => Ingredients::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
                 'multiple' => true,
             ])
-
-            ->add('description')
-
-            ->add('cree_le', null, [
-                'widget' => 'single_text'
-            ])
-
             ->add('objectif', EntityType::class, [
                 'class' => Objectif::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
+                'label' => 'Objectif',
+                'placeholder' => 'Choisissez un objectif',
             ])
             ->add('typeDeRepas', EntityType::class, [
                 'class' => TypeDeRepas::class,
-                'choice_label' => 'id',
+                'choice_label' => 'nom',
+                'label' => 'Type de repas',
+                'placeholder' => 'Choisissez un type de repas',
             ])
-        ;
+
+            ->add('description', TextareaType::class, [
+                'label' => 'Description / préparation',
+                'required' => true,
+                'attr' => [
+                    'rows' => 6,
+                    'placeholder' => 'Décrivez les étapes de votre recette.',
+                ],
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

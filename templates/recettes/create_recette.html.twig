@@ -1,0 +1,25 @@
+% extends 'base.html.twig' %}
+
+{% block title %}Créer une recette
+{% endblock %}
+
+{% block body %}
+	<main class="container">
+		<h1>Créer une recette</h1>
+
+		{% if app.user %}
+			<p class="auteur">
+				Recette créée par :
+				<strong>{{ app.user.pseudo }}</strong>
+			</p>
+		{% endif %}
+
+		<div class="form-recette">
+			{{ form_start(form) }}
+			{{ form_widget(form) }}
+
+			<button class="btn-nav">Valider</button>
+			{{ form_end(form) }}
+		</div>
+	</main>
+{% endblock %}
