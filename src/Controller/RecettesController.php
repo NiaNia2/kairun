@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
 final class RecettesController extends AbstractController
 {
     #[Route('/recettes', name: 'app_recettes')]
@@ -23,12 +24,7 @@ final class RecettesController extends AbstractController
         ]);
     }
 
-    //     #[Route('/recette/{id}', name: 'recette_show')]
-    // public function show(Recette $recette): Response
 
-    // {
-    //     return $this->render('recettes/')
-    // }
 
     #[Route('/recette/nouvelle', name: 'recette_new')]
     public function new(Request $request, EntityManagerInterface $em): Response
@@ -40,7 +36,9 @@ final class RecettesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $recette->setCreeLe(new \DateTimeImmutable());
-
+            if ($this->getUser()) {
+                $recette->setUser($this->getUser());
+            }
             $em->persist($recette);
             $em->flush();
 
@@ -53,27 +51,87 @@ final class RecettesController extends AbstractController
     }
 
     #[Route('/perte-de-poids', name: 'perte_de_poids')]
-    public function perteDePoids(RecetteRepository $recetteRepository, ObjectifRepository $objectifRepository): Response
+    public function perteDePoids(Request $request, RecetteRepository $recetteRepository, ObjectifRepository $objectifRepository, TypeDeRepasRepository $typeDeRepasRepository): Response
     {
         $objectif = $objectifRepository->findOneBy(['nom' => 'Perte de poids']);
-        $recettes = $recetteRepository->findBy(['objectif' => $objectif]);
 
+        $types = $typeDeRepasRepository->findAll();
+
+
+        $selectedTypeId = $request->query->getInt('type', 0);
+        $selectedType = null;
+        $critere = ['objectif' => $objectif];
+
+        if ($selectedTypeId > 0) {
+            $selectedType = $typeDeRepasRepository->find($selectedTypeId);
+
+            if ($selectedType) {
+
+                $critere['typeDeRepas'] = $selectedType;
+            }
+        }
+
+        $recettesFiltres = $recetteRepository->findBy(
+            $critere,
+            ['cree_le' => 'DESC']
+        );
+        $dernieresRecettes = $recetteRepository->findBy(
+            ['objectif' => $objectif],
+            ['cree_le' => 'DESC'],
+            3
+
+        );
         return $this->render('recettes/perte_de_poids.html.twig', [
             'objectif' => $objectif,
-            'recettes' => $recettes,
+            'types' => $types,
+            'selectedType' => $selectedType,
+            'selectedTypeId' => $selectedTypeId,
+            'recettesFiltres' => $recettesFiltres,
+            'dernieresRecettes' => $dernieresRecettes,
+
         ]);
     }
 
 
     #[Route('/prise-de-masse', name: 'prise_de_masse')]
-    public function priseDeMasse(RecetteRepository $recetteRepository, ObjectifRepository $objectifRepository): Response
+    public function priseDeMasse(Request $request, RecetteRepository $recetteRepository, ObjectifRepository $objectifRepository, TypeDeRepasRepository $typeDeRepasRepository): Response
     {
         $objectif = $objectifRepository->findOneBy(['nom' => 'Prise de masse']);
-        $recettes = $recetteRepository->findBy(['objectif' => $objectif]);
 
+        $types = $typeDeRepasRepository->findAll();
+
+
+        $selectedTypeId = $request->query->getInt('type', 0);
+        $selectedType = null;
+        $critere = ['objectif' => $objectif];
+
+        if ($selectedTypeId > 0) {
+            $selectedType = $typeDeRepasRepository->find($selectedTypeId);
+
+            if ($selectedType) {
+
+                $critere['typeDeRepas'] = $selectedType;
+            }
+        }
+
+        $recettesFiltres = $recetteRepository->findBy(
+            $critere,
+            ['cree_le' => 'DESC']
+        );
+        $dernieresRecettes = $recetteRepository->findBy(
+            ['objectif' => $objectif],
+            ['cree_le' => 'DESC'],
+            3
+
+        );
         return $this->render('recettes/prise_de_masse.html.twig', [
             'objectif' => $objectif,
-            'recettes' => $recettes,
+            'types' => $types,
+            'selectedType' => $selectedType,
+            'selectedTypeId' => $selectedTypeId,
+            'recettesFiltres' => $recettesFiltres,
+            'dernieresRecettes' => $dernieresRecettes,
+
         ]);
     }
 }
