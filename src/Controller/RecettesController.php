@@ -22,6 +22,14 @@ final class RecettesController extends AbstractController
             'controller_name' => 'RecettesController',
         ]);
     }
+
+    //     #[Route('/recette/{id}', name: 'recette_show')]
+    // public function show(Recette $recette): Response
+
+    // {
+    //     return $this->render('recettes/')
+    // }
+
     #[Route('/recette/nouvelle', name: 'recette_new')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
@@ -47,7 +55,7 @@ final class RecettesController extends AbstractController
     #[Route('/perte-de-poids', name: 'perte_de_poids')]
     public function perteDePoids(RecetteRepository $recetteRepository, ObjectifRepository $objectifRepository): Response
     {
-        $objectif = $objectifRepository->findOneBy(['nom' => 'Perte de poid']);
+        $objectif = $objectifRepository->findOneBy(['nom' => 'Perte de poids']);
         $recettes = $recetteRepository->findBy(['objectif' => $objectif]);
 
         return $this->render('recettes/perte_de_poids.html.twig', [
@@ -55,18 +63,7 @@ final class RecettesController extends AbstractController
             'recettes' => $recettes,
         ]);
     }
-    #[Route('/perte-de-poids/petit-dejeuner', name: 'perte_poids_petit_dejeuner')]
-    public function perteDePoidsPetitDejeuner(RecetteRepository $recetteRepository, ObjectifRepository $objectifRepository, TypeDeRepasRepository $typeDeRepasRepository): Response
-    {
-        $objectif = $objectifRepository->findOneBy(['nom' => 'Perte de poid']);
-        $typeDeRepas = $typeDeRepasRepository->findOneBy(['nom' => 'Petit déjeuner']);
-        $recettes = $recetteRepository->findBy(['objectif' => $objectif, 'typeDeRepas' => $typeDeRepas]);
 
-        return $this->render('recettes/perte_poids_petit_dejeuner.html.twig', [
-            'objectif' => $objectif,
-            'recettes' => $recettes,
-        ]);
-    }
 
     #[Route('/prise-de-masse', name: 'prise_de_masse')]
     public function priseDeMasse(RecetteRepository $recetteRepository, ObjectifRepository $objectifRepository): Response

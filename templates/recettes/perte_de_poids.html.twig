@@ -3,7 +3,7 @@
 {% endblock %}
 
 {% block body %}
-	<main id="perte-de-poid">
+	<main id="perte-de-poids">
 		<section class="objectif-hero container">
 			<h1>Perte de poids</h1>
 			<p class="description">
@@ -12,31 +12,33 @@
 		</section>
 
 		<section class="categories container">
+			<div class="categories-flex">
+				<div class="categories-card">
+					<a href="{{ path('perte_de_poids') }}">
+						<h3>Petit-déjeuner</h3>
+					</a>
+				</div>
 
-			<div class="cat-card">
-				<a href="{{ path('perte_poids_petit_dejeuner') }}" class="cat-card">
-					<h3>Petit-déjeuner</h3>
-				</a>
-			</div>
+				<div class="categories-card">
+					<a href="{{ path('home') }}">
+						<h3>Déjeuner</h3>
+					</a>
+				</div>
 
-			<div class="cat-card">
-				<a href="{{ path('home') }}" class="cat-card">
-					<h3>Déjeuner</h3>
-				</a>
-			</div>
+				<div class="categories-card">
+					<a href="{{ path('home') }}">
+						<h3>Dîner</h3>
+					</a>
+				</div>
 
-			<div class="cat-card">
-				<a href="{{ path('home') }}" class="cat-card">
-					<h3>Dîner</h3>
-				</a>
-			</div>
-
-			<div class="cat-card">
-				<a href="{{ path('home') }}" class="cat-card">
-					<h3>Collation</h3>
-				</a>
+				<div class="categories-card">
+					<a href="{{ path('home') }}">
+						<h3>Collation</h3>
+					</a>
+				</div>
 			</div>
 		</div>
+
 	</section>
 
 	<section class="recettes container">
