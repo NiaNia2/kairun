@@ -1,0 +1,75 @@
+.create-recette-page {
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem;
+}
+
+.create-recette-page h1 {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.create-recette-page .auteur {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    opacity: .8;
+}
+
+.form-recette {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 14px;
+    border: 2px solid #f7c4b2; // couleur pêche Kaïrun
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.form-recette label {
+    font-weight: 600;
+    margin-bottom: .3rem;
+}
+
+.form-recette input,
+.form-recette textarea,
+.form-recette select {
+    width: 100%;
+    padding: .8rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background: #fafafa;
+    transition: 0.2s ease;
+}
+
+.form-recette input:focus,
+.form-recette textarea:focus,
+.form-recette select:focus {
+    outline: none;
+    border-color: #7ac4a3;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(122, 196, 163, 0.4);
+}
+
+.btn-nav {
+    align-self: center;
+    margin-top: 1rem;
+    padding: .7rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .create-recette-page {
+        padding: 1rem;
+    }
+
+    .form-recette {
+        padding: 1.5rem;
+    }
+}

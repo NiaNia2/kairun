@@ -10,18 +10,17 @@
 		<a href="{% if recette.objectif and recette.objectif.nom == 'Perte de poids' %} {{ path('perte_de_poids') }} {% elseif recette.objectif and recette.objectif.nom == 'Prise de masse' %} {{ path('prise_de_masse') }} {% else %} / {% endif %}" class="btn-retour">
 			← Retour
 		</a>
-		<article
-			class="recette-card">
+		<article class="recette-card">
 
-			{# Image en haut #}
+
 			{% if recette.imageName %}
 				<div class="recette-image-wrapper">
 					<img class="recette-image" src="{{ vich_uploader_asset(recette, 'imageFile') }}" alt="{{ recette.nom }}">
 				</div>
 			{% endif %}
 
-			{# Titre + meta #}
-			<header class="recette-header">
+
+			<div class="recette-header">
 				<h1 class="recette-title">{{ recette.nom }}</h1>
 
 				<div class="recette-meta">
@@ -36,7 +35,7 @@
 					<span>Type :
 						{{ recette.typeDeRepas.nom }}</span>
 				</div>
-			</header>
+			</div>
 
 
 			<section class="recette-layout">
@@ -55,11 +54,28 @@
 
 				<div class="recette-col steps">
 					<h2>Recette</h2>
-					{# si un jour tu passes en étapes numérotées, on adaptera #}
+
 					<p>{{ recette.description|nl2br }}</p>
 				</div>
 			</section>
+			{% if app.user and recette.user and app.user.id == recette.user.id %}
+				<div class="recette-actions">
 
+					<a href="{{ path('recette_edit', { id: recette.id }) }}" class="btn-nav">
+						Modifier
+					</a>
+
+					<form action="{{ path('recette_delete', { id: recette.id }) }}" method="post" onsubmit="return confirm('Voulez-vous vraiment supprimer cette recette ?');">
+
+						<input type="hidden" name="_token" value="{{ csrf_token('delete_recette_' ~ recette.id) }}">
+
+						<button class="btn-nav btn-danger">
+							Supprimer
+						</button>
+					</form>
+
+				</div>
+			{% endif %}
 		</article>
 
 	</main>

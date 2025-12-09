@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Repository\RecetteRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Attribute\AdminDashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -13,30 +14,26 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[AdminDashboard(routePath: '/admin', routeName: 'admin')]
 class DashboardController extends AbstractDashboardController
 {
+    private RecetteRepository $recetteRepository;
+
+    public function __construct(RecetteRepository $recetteRepository)
+    {
+        $this->recetteRepository = $recetteRepository;
+    }
+
     public function index(): Response
     {
-        return $this->render('admin/index.html.twig');
-        //return parent::index();
+        // Nombre total de recettes
+        $totalRecettes = $this->recetteRepository->count([]);
 
-        // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-        // 1.1) If you have enabled the "pretty URLs" feature:
-        // return $this->redirectToRoute('admin_user_index');
-        //
-        // 1.2) Same example but using the "ugly URLs" that were used in previous EasyAdmin versions:
-        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // return $this->redirect($adminUrlGenerator->setController(OneOfYourCrudController::class)->generateUrl());
+        // 5 dernières recettes créées
+        $derniereRecettes = $this->recetteRepository->findBy([], ['cree_le' => 'DESC'], 5);
 
-        // Option 2. You can make your dashboard redirect to different pages depending on the user
-        //
-        // if ('jane' === $this->getUser()->getUsername()) {
-        //     return $this->redirectToRoute('...');
-        // }
-
-        // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //
-        // return $this->render('some/path/my-dashboard.html.twig');
+        return $this->render('admin/index.html.twig', [
+            'user'              => $this->getUser(),
+            'totalRecettes'     => $totalRecettes,
+            'derniereRecettes'  => $derniereRecettes,
+        ]);
     }
 
     public function configureDashboard(): Dashboard
@@ -48,6 +45,8 @@ class DashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
+
+        yield MenuItem::section('Site');
+        yield MenuItem::linkToRoute('Retour au site', 'fa fa-arrow-left', 'home');
     }
 }

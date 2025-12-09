@@ -4,6 +4,8 @@
 @use "pages/masse";
 @use "pages/recettes";
 @use "pages/recette_show";
+@use "pages/par_type";
+@use "pages/create_recette";
 
 //Layouts
 @use "layout/header";
@@ -22,3 +24,4 @@
 @use "base/typographys";
 
 @use "responsives/head";
+@use "responsives/foot"

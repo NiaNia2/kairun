@@ -5,10 +5,19 @@
  }
 
  @media screen and (max-width:1250px) {
-     #header {
-         .header {}
+     #header .header .navbar_menu .navbar_list_container {
+         .navbar_list {
+             display: none;
+         }
+
+         .burger {
+             position: relative;
+             display: flex;
+         }
      }
+
  }
+
 
  @media screen and (max-width:768px) {
      #header .header .navbar_menu .navbar_list_container {

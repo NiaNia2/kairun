@@ -60,7 +60,7 @@ final class RecettesController extends AbstractController
         ObjectifRepository $objectifRepository,
         TypeDeRepasRepository $typeDeRepasRepository
     ): Response {
-        // 1) On récupère l'objectif "Perte de poids"
+        //  On récupère l'objectif "Perte de poids"
         $objectif = $objectifRepository->findOneBy(['nom' => 'Perte de poids']);
 
         $types = $typeDeRepasRepository->findAll();
@@ -152,26 +152,27 @@ final class RecettesController extends AbstractController
         ObjectifRepository $objectifRepository,
         TypeDeRepasRepository $typeDeRepasRepository
     ): Response {
-        // Slugs dans l'URL Nom EXACT en BDD
+
+        // Slugs de l’URL -> nom EXACT en base
         $mapObjectif = [
             'perte-de-poids' => 'Perte de poids',
             'prise-de-masse' => 'Prise de masse',
         ];
 
         $mapType = [
-            // ICI  correspond EXACTEMENT à ce que tu as dans la BDD  "Petit dejeuner"
+            //  DOIT correspondre exactement à la colonne "nom" dans type_de_repas
             'petit-dejeuner' => 'Petit dejeuner',
             'dejeuner'       => 'Déjeuner',
             'diner'          => 'Dîner',
-            'collation'      => 'Collation',
+            'collation'      => 'Collations',
         ];
 
-        // Si on ne connaît pas le slug → 404
+        // Si le slug ne correspond pas à une clé, on 404 direct
         if (!isset($mapObjectif[$objectif]) || !isset($mapType[$type])) {
-            throw $this->createNotFoundException('Objectif ou type inconnu.');
+            throw $this->createNotFoundException(' type inconnu.');
         }
 
-        // On va chercher les entités exactes en BDD
+        // On va chercher les entités exactes en base
         $objectifEntity = $objectifRepository->findOneBy(['nom' => $mapObjectif[$objectif]]);
         $typeEntity     = $typeDeRepasRepository->findOneBy(['nom' => $mapType[$type]]);
 
@@ -179,7 +180,6 @@ final class RecettesController extends AbstractController
             throw $this->createNotFoundException('Objectif ou type introuvable en base.');
         }
 
-        // On filtre les recettes par objectif + type de repas
         $recettes = $recetteRepository->findBy(
             [
                 'objectif'    => $objectifEntity,
@@ -194,12 +194,51 @@ final class RecettesController extends AbstractController
             'recettes' => $recettes,
         ]);
     }
-
     #[Route('/recette/{id}', name: 'recette_show', requirements: ['id' => '\d+'])]
     public function show(Recette $recette): Response
     {
         return $this->render('recettes/recette_show.html.twig', [
             'recette' => $recette,
         ]);
+    }
+
+    #[Route('/recette/{id}/modifier', name: 'recette_edit')]
+    public function edit(Recette $recette, Request $request, EntityManagerInterface $em): Response
+    {
+
+        if ($recette->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Accès refusé.');
+        }
+
+        $form = $this->createForm(RecetteType::class, $recette);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('recette_show', [
+                'id' => $recette->getId()
+            ]);
+        }
+
+        return $this->render('recettes/create_recette.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/recette/{id}/supprimer', name: 'recette_delete', methods: ['POST'])]
+    public function delete(Recette $recette, Request $request, EntityManagerInterface $em): Response
+    {
+
+        if ($recette->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Accès refusé.');
+        }
+
+        if ($this->isCsrfTokenValid('delete_recette_' . $recette->getId(), $request->request->get('_token'))) {
+            $em->remove($recette);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('perte_de_poids');
     }
 }

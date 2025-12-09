@@ -1,0 +1,52 @@
+{% extends '@EasyAdmin/page/content.html.twig' %}
+
+{% block content %}
+	<main id="admin-dashboard">
+		<h1>Dashboard admin</h1>
+		<p>Bienvenue
+			{{ user ? user.userIdentifier : '' }}
+			👋</p>
+
+		<section class="admin-cards">
+			<article class="admin-card">
+				<h2>Recettes</h2>
+				<p class="admin-card__number">{{ totalRecettes|default(0) }}</p>
+				<p class="admin-card__label">recettes au total</p>
+			</article>
+		</section>
+
+		<section class="admin-last-recipes">
+			<h2>Dernières recettes créées</h2>
+
+
+			{% set recettesListe = derniereRecettes|default([]) %}
+
+			{% if recettesListe is empty %}
+				<p>Aucune recette pour le moment.</p>
+			{% else %}
+				<table class="admin-table">
+					<thead>
+						<tr>
+							<th>Nom</th>
+							<th>Objectif</th>
+							<th>Type</th>
+							<th>Auteur</th>
+							<th>Créée le</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for recette in recettesListe %}
+							<tr>
+								<td>{{ recette.nom }}</td>
+								<td>{{ recette.objectif ? recette.objectif.nom : '-' }}</td>
+								<td>{{ recette.typeDeRepas ? recette.typeDeRepas.nom : '-' }}</td>
+								<td>{{ recette.user ? recette.user.userIdentifier : '-' }}</td>
+								<td>{{ recette.creeLe ? recette.creeLe|date('d/m/Y H:i') : '-' }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			{% endif %}
+		</section>
+	</main>
+{% endblock %}

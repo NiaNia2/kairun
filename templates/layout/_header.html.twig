@@ -41,6 +41,9 @@
 							<a class="btn-nav" href="{{path('create_user')}}">Inscription</a>
 						</li>
 					{% endif %}
+					{% if is_granted('ROLE_ADMIN') %}
+						<a class="btn-nav" href="{{ path('admin') }}">Admin</a>
+					{% endif %}
 				</ul>
 			</div>
 		</div>

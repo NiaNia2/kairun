@@ -1,0 +1,34 @@
+@media screen and (min-width:1921px) {
+    #footer {
+        .footer {}
+    }
+}
+
+@media screen and (max-width:1800px) {
+    #footer .footer .footer-content .footer-list ul {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+    }
+}
+
+@media screen and (max-width:768px) {
+    #footer .footer .footer-content .footer-list ul {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width:525px) {
+    #footer {
+        .footer {}
+    }
+}
+
+@media screen and (max-width:453px) {
+    #footer {
+        .footer {}
+    }
+}
