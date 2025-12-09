@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ type.nom }}
+	–
+	{{ objectif.nom }}
+{% endblock %}
+
+{% block body %}
+	<main class="container">
+		<section class="objectif-hero">
+			<h1>{{ type.nom }}
+				–
+				{{ objectif.nom }}</h1>
+			<p class="description">
+				Recettes pour
+				{{ type.nom|lower }}
+				dans ton objectif «
+				{{ objectif.nom }}
+				».
+			</p>
+		</section>
+
+		<section class="recettes">
+			<h2>Recettes disponibles</h2>
+
+			<div class="recettes-flex">
+				{% for recette in recettes %}
+					<article class="recette-card">
+						<h3>{{ recette.nom }}</h3>
+
+
+						{% if recette.imageName %}
+							<img src="{{ asset('images/recettes/' ~ recette.imageName) }}" alt="{{ recette.nom }}" class="recette-image">
+						{% endif %}
+
+						<p class="temps">
+							Préparation :
+							{{ recette.tempPrepaMin }}
+							min<br>
+							Cuisson :
+							{{ recette.tempsCuissonsMin }}
+							min
+						</p>
+
+						<a href="{{ path('recette_show', { id: recette.id }) }}" class="btn-nav">
+							Voir la recette
+						</a>
+					</article>
+				{% else %}
+					<p>Aucune recette pour le moment.</p>
+				{% endfor %}
+			</div>
+		</section>
+	</main>
+{% endblock %}

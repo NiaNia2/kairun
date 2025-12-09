@@ -14,55 +14,62 @@
 		<section class="categories container">
 			<div class="categories-flex">
 				<div class="categories-card">
-					<a href="{{ path('perte_de_poids') }}">
+					<a href="{{ path('recettes_par_type', { objectif: 'perte-de-poids', type: 'petit-dejeuner' }) }}">
 						<h3>Petit-déjeuner</h3>
 					</a>
 				</div>
 
 				<div class="categories-card">
-					<a href="{{ path('home') }}">
+					<a href="{{ path('recettes_par_type', { objectif: 'perte-de-poids', type: 'dejeuner' }) }}">
 						<h3>Déjeuner</h3>
 					</a>
 				</div>
 
 				<div class="categories-card">
-					<a href="{{ path('home') }}">
+					<a href="{{ path('recettes_par_type', { objectif: 'perte-de-poids', type: 'diner' }) }}">
 						<h3>Dîner</h3>
 					</a>
 				</div>
 
 				<div class="categories-card">
-					<a href="{{ path('home') }}">
+					<a href="{{ path('recettes_par_type', { objectif: 'perte-de-poids', type: 'collation' }) }}">
 						<h3>Collation</h3>
 					</a>
 				</div>
 			</div>
-		</div>
 
-	</section>
+		</section>
 
-	<section class="recettes container">
-		<h2>Les dernières recettes Perte de poids</h2>
+		<section class="recettes container">
+			<h2>Les dernières recettes Perte de poids</h2>
 
-		<div class="recettes-flex">
-			{% for recette in dernieresRecettes %}
-				<article class="recette-card">
-					<h3>{{ recette.nom }}</h3>
+			<div class="recettes-flex">
+				{% for recette in dernieresRecettes %}
+					<article class="recette-card">
+						<h3>{{ recette.nom }}</h3>
 
-					<p class="temps">
-						Préparation :
-						{{ recette.tempPrepaMin }}
-						min<br>
-						Cuisson :
-						{{ recette.tempsCuissonsMin }}
-						min
-					</p>
+						{# IMAGE DE LA RECETTE (VichUploader) #}
+						{% if recette.imageName %}
+							<img src="{{ asset('images/recettes/' ~ recette.imageName) }}" alt="{{ recette.nom }}" class="recette-image">
+						{% endif %}
 
-					<a href="#" class="btn-nav">Voir la recette</a>
-				</article>
-			{% else %}
-				<p>Aucune recette pour le moment.</p>
-			{% endfor %}
-		</div>
-	</section>
-</main>{% endblock %}
+						<p class="temps">
+							Préparation :
+							{{ recette.tempPrepaMin }}
+							min<br>
+							Cuisson :
+							{{ recette.tempsCuissonsMin }}
+							min
+						</p>
+
+						<a href="{{ path('recette_show', { id: recette.id }) }}" class="btn-nav">
+							Voir la recette
+						</a>
+					</article>
+				{% else %}
+					<p>Aucune recette pour le moment.</p>
+				{% endfor %}
+			</div>
+		</section>
+	</main>
+{% endblock %}

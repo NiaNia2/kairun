@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ recette.nom }}
+	• Kaïrun
+{% endblock %}
+
+{% block body %}
+	<main class="recette-page">
+		<a href="{% if recette.objectif and recette.objectif.nom == 'Perte de poids' %} {{ path('perte_de_poids') }} {% elseif recette.objectif and recette.objectif.nom == 'Prise de masse' %} {{ path('prise_de_masse') }} {% else %} / {% endif %}" class="btn-retour">
+			← Retour
+		</a>
+		<article
+			class="recette-card">
+
+			{# Image en haut #}
+			{% if recette.imageName %}
+				<div class="recette-image-wrapper">
+					<img class="recette-image" src="{{ vich_uploader_asset(recette, 'imageFile') }}" alt="{{ recette.nom }}">
+				</div>
+			{% endif %}
+
+			{# Titre + meta #}
+			<header class="recette-header">
+				<h1 class="recette-title">{{ recette.nom }}</h1>
+
+				<div class="recette-meta">
+					<span>Préparation :
+						{{ recette.tempPrepaMin }}
+						min</span>
+					<span>Cuisson :
+						{{ recette.tempsCuissonsMin }}
+						min</span>
+					<span>Objectif :
+						{{ recette.objectif.nom }}</span>
+					<span>Type :
+						{{ recette.typeDeRepas.nom }}</span>
+				</div>
+			</header>
+
+
+			<section class="recette-layout">
+				<div class="recette-col ingredients">
+					<h2>Ingrédients</h2>
+					{% if recette.ingredient|length > 0 %}
+						<ul>
+							{% for ing in recette.ingredient %}
+								<li>{{ ing.nom }}</li>
+							{% endfor %}
+						</ul>
+					{% else %}
+						<p>Aucun ingrédient renseigné.</p>
+					{% endif %}
+				</div>
+
+				<div class="recette-col steps">
+					<h2>Recette</h2>
+					{# si un jour tu passes en étapes numérotées, on adaptera #}
+					<p>{{ recette.description|nl2br }}</p>
+				</div>
+			</section>
+
+		</article>
+
+	</main>
+{% endblock %}

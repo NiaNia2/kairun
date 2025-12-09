@@ -2,18 +2,17 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use App\Entity\Recette;
 use App\Entity\Objectif;
 use App\Entity\Ingredients;
 use App\Entity\TypeDeRepas;
-use Doctrine\DBAL\Types\TextType;
-use Vich\UploaderBundle\Entity\File;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
@@ -66,7 +65,7 @@ class RecetteType extends AbstractType
             ])
 
             ->add('description', TextareaType::class, [
-                'label' => 'Description / préparation',
+                'label' => 'Description ',
                 'required' => true,
                 'attr' => [
                     'rows' => 6,

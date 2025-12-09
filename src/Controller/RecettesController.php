@@ -11,6 +11,7 @@ use App\Repository\TypeDeRepasRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
@@ -47,53 +48,60 @@ final class RecettesController extends AbstractController
             return $this->redirectToRoute('app_recettes');
         }
 
-        return $this->render('create_recette.html.twig', [
+        return $this->render('recettes/create_recette.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     #[Route('/perte-de-poids', name: 'perte_de_poids')]
-    public function perteDePoids(Request $request, RecetteRepository $recetteRepository, ObjectifRepository $objectifRepository, TypeDeRepasRepository $typeDeRepasRepository): Response
-    {
+    public function perteDePoids(
+        Request $request,
+        RecetteRepository $recetteRepository,
+        ObjectifRepository $objectifRepository,
+        TypeDeRepasRepository $typeDeRepasRepository
+    ): Response {
+        // 1) On récupère l'objectif "Perte de poids"
         $objectif = $objectifRepository->findOneBy(['nom' => 'Perte de poids']);
 
         $types = $typeDeRepasRepository->findAll();
 
-
         $selectedTypeId = $request->query->getInt('type', 0);
         $selectedType = null;
+
+
         $critere = ['objectif' => $objectif];
 
+        // Si un type est sélectionné on l'ajoute aux critères
         if ($selectedTypeId > 0) {
             $selectedType = $typeDeRepasRepository->find($selectedTypeId);
 
             if ($selectedType) {
-
                 $critere['typeDeRepas'] = $selectedType;
             }
         }
 
+        // Recettes filtrées 
         $recettesFiltres = $recetteRepository->findBy(
             $critere,
             ['cree_le' => 'DESC']
         );
+
+        //  3 dernières recettes pour "Perte de poids"
         $dernieresRecettes = $recetteRepository->findBy(
             ['objectif' => $objectif],
             ['cree_le' => 'DESC'],
             3
-
         );
-        return $this->render('recettes/perte_de_poids.html.twig', [
-            'objectif' => $objectif,
-            'types' => $types,
-            'selectedType' => $selectedType,
-            'selectedTypeId' => $selectedTypeId,
-            'recettesFiltres' => $recettesFiltres,
-            'dernieresRecettes' => $dernieresRecettes,
 
+        return $this->render('recettes/perte_de_poids.html.twig', [
+            'objectif'          => $objectif,
+            'types'             => $types,
+            'selectedType'      => $selectedType,
+            'selectedTypeId'    => $selectedTypeId,
+            'recettesFiltres'   => $recettesFiltres,
+            'dernieresRecettes' => $dernieresRecettes,
         ]);
     }
-
 
     #[Route('/prise-de-masse', name: 'prise_de_masse')]
     public function priseDeMasse(Request $request, RecetteRepository $recetteRepository, ObjectifRepository $objectifRepository, TypeDeRepasRepository $typeDeRepasRepository): Response
@@ -134,6 +142,64 @@ final class RecettesController extends AbstractController
             'recettesFiltres' => $recettesFiltres,
             'dernieresRecettes' => $dernieresRecettes,
 
+        ]);
+    }
+    #[Route('/recettes/{objectif}/{type}', name: 'recettes_par_type')]
+    public function recettesParType(
+        string $objectif,
+        string $type,
+        RecetteRepository $recetteRepository,
+        ObjectifRepository $objectifRepository,
+        TypeDeRepasRepository $typeDeRepasRepository
+    ): Response {
+        // Slugs dans l'URL Nom EXACT en BDD
+        $mapObjectif = [
+            'perte-de-poids' => 'Perte de poids',
+            'prise-de-masse' => 'Prise de masse',
+        ];
+
+        $mapType = [
+            // ICI  correspond EXACTEMENT à ce que tu as dans la BDD  "Petit dejeuner"
+            'petit-dejeuner' => 'Petit dejeuner',
+            'dejeuner'       => 'Déjeuner',
+            'diner'          => 'Dîner',
+            'collation'      => 'Collation',
+        ];
+
+        // Si on ne connaît pas le slug → 404
+        if (!isset($mapObjectif[$objectif]) || !isset($mapType[$type])) {
+            throw $this->createNotFoundException('Objectif ou type inconnu.');
+        }
+
+        // On va chercher les entités exactes en BDD
+        $objectifEntity = $objectifRepository->findOneBy(['nom' => $mapObjectif[$objectif]]);
+        $typeEntity     = $typeDeRepasRepository->findOneBy(['nom' => $mapType[$type]]);
+
+        if (!$objectifEntity || !$typeEntity) {
+            throw $this->createNotFoundException('Objectif ou type introuvable en base.');
+        }
+
+        // On filtre les recettes par objectif + type de repas
+        $recettes = $recetteRepository->findBy(
+            [
+                'objectif'    => $objectifEntity,
+                'typeDeRepas' => $typeEntity,
+            ],
+            ['cree_le' => 'DESC']
+        );
+
+        return $this->render('recettes/par_type.html.twig', [
+            'objectif' => $objectifEntity,
+            'type'     => $typeEntity,
+            'recettes' => $recettes,
+        ]);
+    }
+
+    #[Route('/recette/{id}', name: 'recette_show', requirements: ['id' => '\d+'])]
+    public function show(Recette $recette): Response
+    {
+        return $this->render('recettes/recette_show.html.twig', [
+            'recette' => $recette,
         ]);
     }
 }
